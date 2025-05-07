@@ -1,0 +1,137 @@
+# Configuration rules for Phase 2 Post-Processing script (v7 + Ambiguity Rules)
+
+# Rules for identifying CODE segments
+code_rules:
+  # Patterns for identifying monospace fonts (case-insensitive)
+  monospace_font_patterns:
+    - "Mono"
+    - "Typewriter"
+    - "Courier"
+    - "Consola"
+    - "Menlo"
+    - "SFTT"
+    - "Fixed"
+    - "Code"
+    - "CMTT"
+    - "Lucida Console"
+    - "Hack"
+  # Keywords commonly found in programming languages
+  code_keywords:
+    - "def"
+    - "class"
+    - "import"
+    - "from"
+    - "for"
+    - "while"
+    - "if"
+    - "else"
+    - "elif"
+    - "try"
+    - "except"
+    - "return"
+    - "yield"
+    - "lambda"
+    - "print"
+    - "self"
+    - "true"
+    - "false"
+    - "none"
+    - "and"
+    - "or"
+    - "not"
+    - "in"
+    - "is"
+    - "with"
+    - "as"
+    - "assert"
+    - "break"
+    - "continue"
+    - "pass"
+    - "raise"
+    - "global"
+    - "nonlocal"
+  # Heuristics thresholds/weights for code scoring
+  monospace_char_threshold: 0.6 # Minimum ratio of monospace characters
+  keyword_density_threshold: 0.15 # Minimum ratio of code keywords to total words
+  operator_density_threshold: 0.05 # Minimum ratio of code operators to total characters
+  short_block_monospace_threshold: 50 # Character count threshold for short block adjustments
+  # Score required to classify definitively as code in the first pass
+  code_score_threshold: 3
+  # Negative patterns (regex, case-insensitive) that strongly suggest NOT code
+  negative_code_patterns:
+    - "^<Figure size .*>$"
+    - "^Listing \\d+\\.\\d+:"
+    - "^Example \\d+\\.\\d+:"
+    - "^Algorithm \\d+:"
+    - "^Figure \\d+\\.\\d+:"
+    - "^Table \\d+\\.\\d+:"
+
+# Rules for identifying MATH segments
+math_rules:
+  # Patterns for identifying math-specific fonts (case-insensitive)
+  math_font_patterns:
+    - "math"
+    - "cmsy"
+    - "cmmi"
+    - "symbol"
+  # Characters commonly found in mathematical expressions
+  math_chars: [ '≈' ,  '−' ,  '≠' ,  '≤' ,  '≥' ,  '∑' ,  '∫' ,  '∂' ,  '∇' ,  '√' ,  '∞' , '±', '×', '÷',  '∈' ,  '∉' ,  '⊂' ,  '⊃' ,  '⊆' ,  '⊇' ,  '∧' ,  '∨' , '¬',  '∀' ,  '∃' ,  '∴' ,  '∵' , 'α', 'β', 'γ', 'δ', 'ε', 'ζ', 'η', 'θ', 'ι', 'κ', 'λ', 'μ', 'ν', 'ξ', 'ο', 'π', 'ρ', 'ς', 'σ', 'τ', 'υ', 'φ', 'χ', 'ψ', 'ω', 'Γ', 'Δ', 'Θ', 'Λ', 'Ξ', 'Π', 'Σ', 'Φ', 'Ψ', 'Ω', '^', '_', '{', '}']
+  # Heuristics thresholds/weights for math scoring
+  math_font_threshold: 0.15 # Minimum ratio of math font characters
+  math_symbol_threshold: 0.08 # Minimum ratio of math symbols to total characters
+  italic_variable_threshold: 0.10 # Minimum ratio of italic single letters (potential variables)
+  varied_size_threshold: 1.5 # Font size difference threshold for detecting varied sizes
+  # Negative keywords/context that strongly suggest NOT math (prose)
+  negative_prose_keywords:
+    - "figure"
+    - "table"
+    - "example"
+    - "note"
+    - "source"
+    - "caution"
+    - "chapter"
+    - "section"
+    - "equation"
+    - "theorem"
+    - "lemma"
+    - "proof"
+    - "corollary"
+    - "definition"
+    - "proposition"
+    - "remark"
+    - "exercise"
+  max_prose_word_ratio: 0.5 # Maximum ratio of common English words
+  # Score threshold for classifying definitively as math in the first pass
+  math_score_threshold: 3
+
+# Configuration for identifying and refining ambiguous segments
+ambiguity_rules:
+  # Minimum score for a text block to be considered potentially ambiguous code in the first pass
+  # Segments with a code score between ambiguous_code_score_min and code_score_threshold are flagged.
+  ambiguous_code_score_min: 1
+  # Minimum score for a text block to be considered potentially ambiguous math in the first pass
+  # Segments with a math score between ambiguous_math_score_min and math_score_threshold are flagged.
+  ambiguous_math_score_min: 1
+  # You might add more rules here for the second refinement pass if needed
+
+# Configuration for grouping segments (e.g., consecutive code lines)
+grouping_rules:
+  # Maximum vertical distance between consecutive text/code segments to be grouped as code
+  code_max_v_distance: 20
+  # Maximum vertical distance between a GAP segment and a subsequent code segment to be grouped
+  gap_code_max_v_distance: 30
+  # Estimated width of a single indentation level in pixels
+  indent_width_estimate: 18
+  # Minimum pixel difference to consider two horizontal positions as different indentation levels
+  min_indent_diff: 5
+  # Maximum plausible indentation width to consider for automatic detection
+  max_indent_width: 50
+
+# Input/Output Paths
+# Specify the directory containing your input JSONL files
+input_jsonl_dir: 'C:\\apex_project\\final_processed_jsonl_by_category_detailed'
+# Specify the directory where the processed output JSONL files will be saved
+output_processed_dir: 'C:\\apex_project\\structured_jsonl_by_category'
+# Optional: Specify a single input filename to process instead of all files in the directory
+# input_filename: 'your_specific_file.jsonl'
+input_filename: null
