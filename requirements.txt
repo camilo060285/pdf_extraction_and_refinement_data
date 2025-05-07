@@ -1,0 +1,6 @@
+PyMuPDF
+tqdm
+PyYAML
+ijson
+panda
+jsonlines
