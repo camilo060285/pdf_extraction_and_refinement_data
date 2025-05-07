@@ -1,8 +1,7 @@
-# [Project Name] - Book Data Processing Pipeline
+# [Project Name] - pdf_extraction_and_refinement_data
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) ## Description
 
-[Choose one of the descriptions we discussed, or write your own. Example:]
 
 This project is a Python-based pipeline designed for processing book data, particularly large files in JSONL format. It includes scripts for chunking files, extracting content while detecting specific "gaps" or missing information, and applying a multi-stage post-processing routine guided by configurable heuristic rules.
 
@@ -40,6 +39,14 @@ This project is a Python-based pipeline designed for processing book data, parti
     jsonlines
     PyYAML
     pandas
+    statistics
+    shutil
+    traceback
+    uuid
+    mport fitz  # PyMuPDF
+    json
+    os
+    tqdm
     [Any other library your scripts use, e.g., nltk, spacy, etc.]
     ```
 
