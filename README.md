@@ -36,18 +36,12 @@ This project is a Python-based pipeline designed for processing book data, parti
     Create a file named `requirements.txt` in the root directory with needed libraries listed line by line. For example:
 
     ```txt
-    jsonlines
-    PyYAML
-    pandas
-    statistics
-    shutil
-    traceback
-    uuid
-    mport fitz  # PyMuPDF
-    json
-    os
+    PyMuPDF
     tqdm
-    [Any other library your scripts use, e.g., nltk, spacy, etc.]
+    PyYAML
+    ijson
+    panda
+    jsonlines
     ```
 
     Then, install them using pip:
